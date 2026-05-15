@@ -1,0 +1,13 @@
+CREATE TABLE apex_form_drafts (
+  draft_id    NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  app_id      NUMBER         NOT NULL,
+  page_id     NUMBER         NOT NULL,
+  app_user    VARCHAR2(255)  NOT NULL,
+  draft_data  CLOB,
+  created_on  TIMESTAMP DEFAULT SYSTIMESTAMP,
+  updated_on  TIMESTAMP DEFAULT SYSTIMESTAMP,
+  CONSTRAINT uq_draft UNIQUE (app_id, page_id, app_user)
+);
+
+CREATE INDEX idx_draft_user
+  ON apex_form_drafts(app_id, page_id, app_user);
